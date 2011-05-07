@@ -84,7 +84,7 @@
         <description>Sets the region of interest (ROI) for a sensor set or the
             vehicle itself. This can then be used by the vehicles control
             system to control the vehicle attitude and the attitude of various
-            sensors such as cameras.</description>
+            devices such as cameras.</description>
         <param index="1">Region of intereset mode. (see MAV_ROI enum)</param>
         <param index="2">Waypoint index/ target ID. (see MAV_ROI enum)</param>
         <param index="3">ROI index (allows a vehicle to manage multiple ROI's)</param>
@@ -319,7 +319,7 @@
      <entry name="MAV_ROI_WPNEXT" value="0"><description>Point toward next waypoint.</description></entry>
      <entry name="MAV_ROI_WPINDEX" value="1"><description>Point toward given waypoint.</description></entry>
      <entry name="MAV_ROI_LOCATION" value="2"><description>Point toward fixed location.</description></entry>
-     <entry name="MAV_ROI_TARGET" value="3"><description>Point toward of given id.</description></entry>
+     <entry name="MAV_ROI_TARGET" value="3"><description>Point toward target of given id.</description></entry>
    </enum>
 
 </enums>
