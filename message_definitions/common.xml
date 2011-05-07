@@ -251,7 +251,7 @@
         <param index="7">Empty</param>
       </entry>
 
-      <entry name="MAV_DO_SET_ROI" value="201">
+      <entry name="MAV_CMD_DO_SET_ROI" value="201">
         <description>Sets the region of interest (ROI) for a sensor set or the
             vehicle itself. This can then be used by the vehicles control
             system to control the vehicle attitude and the attitude of various
@@ -315,12 +315,13 @@
    <enum name="MAV_ROI">
      <description> The ROI (region of interest) for the vehicle. This can be
       be used by the vehicle for camera/vehicle attitude alignment (see
-	  MAV_CMD_NAV_ROI).
+	  MAV_CMD_DO_SET_ROI).
      </description>
-     <entry name="MAV_ROI_WPNEXT" value="0"><description>Point toward next waypoint.</description></entry>
-     <entry name="MAV_ROI_WPINDEX" value="1"><description>Point toward given waypoint.</description></entry>
-     <entry name="MAV_ROI_LOCATION" value="2"><description>Point toward fixed location.</description></entry>
-     <entry name="MAV_ROI_TARGET" value="3"><description>Point toward target of given id.</description></entry>
+     <entry name="MAV_ROI_NONE" value="0"><description>No region of interest.</description></entry>
+     <entry name="MAV_ROI_WPNEXT" value="1"><description>Point toward next waypoint.</description></entry>
+     <entry name="MAV_ROI_WPINDEX" value="2"><description>Point toward given waypoint.</description></entry>
+     <entry name="MAV_ROI_LOCATION" value="3"><description>Point toward fixed location.</description></entry>
+     <entry name="MAV_ROI_TARGET" value="4"><description>Point toward target of given id.</description></entry>
    </enum>
 
 </enums>
