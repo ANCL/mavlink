@@ -80,20 +80,6 @@
         <param index="7">Altitude</param>
         </entry>
 
-      <entry name="MAV_CMD_NAV_ROI" value="80">
-        <description>Sets the region of interest (ROI) for a sensor set or the
-            vehicle itself. This can then be used by the vehicles control
-            system to control the vehicle attitude and the attitude of various
-            sensors such as cameras.</description>
-        <param index="1">Region of intereset mode. (see MAV_ROI enum)</param>
-        <param index="2">Waypoint index/ target ID. (see MAV_ROI enum)</param>
-        <param index="3">ROI index (allows a vehicle to manage multiple ROI's)</param>
-        <param index="4">Empty</param>
-        <param index="5">x the location of the fixed ROI (see MAV_FRAME)</param>
-        <param index="6">y</param>
-        <param index="7">z</param>
-      </entry>
-
       <entry name="MAV_CMD_NAV_PATHPLANNING" value="81">
         <description>Control autonomous path planning on the MAV.</description>
         <param index="1">0: Disable local obstacle avoidance / local path planning (without resetting map), 1: Enable local path planning, 2: Enable and reset local path planning</param>
@@ -264,6 +250,21 @@
         <param index="6">Empty</param>
         <param index="7">Empty</param>
       </entry>
+
+      <entry name="MAV_CMD_DO_SET_ROI" value="201">
+        <description>Sets the region of interest (ROI) for a sensor set or the
+            vehicle itself. This can then be used by the vehicles control
+            system to control the vehicle attitude and the attitude of various
+            devices such as cameras.</description>
+        <param index="1">Region of interest mode. (see MAV_ROI enum)</param>
+        <param index="2">Waypoint index/ target ID. (see MAV_ROI enum)</param>
+        <param index="3">ROI index (allows a vehicle to manage multiple cameras etc.)</param>
+        <param index="4">Empty</param>
+        <param index="5">x the location of the fixed ROI (see MAV_FRAME)</param>
+        <param index="6">y</param>
+        <param index="7">z</param>
+      </entry>
+
       <entry name="MAV_CMD_DO_LAST" value="240">
       <description>NOP - This command is only used to mark the upper limit of the DO commands in the enumeration</description>
         <param index="1">Empty</param>
@@ -314,12 +315,13 @@
    <enum name="MAV_ROI">
      <description> The ROI (region of interest) for the vehicle. This can be
       be used by the vehicle for camera/vehicle attitude alignment (see
-	  MAV_CMD_NAV_ROI).
+	  MAV_CMD_DO_SET_ROI).
      </description>
-     <entry name="MAV_ROI_WPNEXT" value="0"><description>Point toward next waypoint.</description></entry>
-     <entry name="MAV_ROI_WPINDEX" value="1"><description>Point toward given waypoint.</description></entry>
-     <entry name="MAV_ROI_LOCATION" value="2"><description>Point toward fixed location.</description></entry>
-     <entry name="MAV_ROI_TARGET" value="3"><description>Point toward of given id.</description></entry>
+     <entry name="MAV_ROI_NONE" value="0"><description>No region of interest.</description></entry>
+     <entry name="MAV_ROI_WPNEXT" value="1"><description>Point toward next waypoint.</description></entry>
+     <entry name="MAV_ROI_WPINDEX" value="2"><description>Point toward given waypoint.</description></entry>
+     <entry name="MAV_ROI_LOCATION" value="3"><description>Point toward fixed location.</description></entry>
+     <entry name="MAV_ROI_TARGET" value="4"><description>Point toward target of given id.</description></entry>
    </enum>
 
 </enums>
@@ -811,6 +813,20 @@ of the controller before actual flight and to assist with tuning controller para
      <field name="pitch_manual" type="uint8_t">pitch auto:0, manual:1</field>
      <field name="yaw_manual" type="uint8_t">yaw auto:0, manual:1</field>
      <field name="thrust_manual" type="uint8_t">thrust auto:0, manual:1</field>
+   </message>
+
+   <message name="RC_CHANNELS_OVERRIDE" id="70">
+	 <description>The RAW values of the RC channels sent to the MAV to override info received from the RC radio. A value of -1 means no change to that channel. A value of 0 means control of that channel should be released back to the RC radio. The standard PPM modulation is as follows: 1000 microseconds: 0%, 2000 microseconds: 100%. Individual receivers/transmitters might violate this specification.</description>
+     <field name="target_system" type="uint8_t">System ID</field>
+     <field name="target_component" type="uint8_t">Component ID</field>
+     <field name="chan1_raw" type="uint16_t">RC channel 1 value, in microseconds</field>
+     <field name="chan2_raw" type="uint16_t">RC channel 2 value, in microseconds</field>
+     <field name="chan3_raw" type="uint16_t">RC channel 3 value, in microseconds</field>
+     <field name="chan4_raw" type="uint16_t">RC channel 4 value, in microseconds</field>
+     <field name="chan5_raw" type="uint16_t">RC channel 5 value, in microseconds</field>
+     <field name="chan6_raw" type="uint16_t">RC channel 6 value, in microseconds</field>
+     <field name="chan7_raw" type="uint16_t">RC channel 7 value, in microseconds</field>
+     <field name="chan8_raw" type="uint16_t">RC channel 8 value, in microseconds</field>
    </message>
 
    <message name="GLOBAL_POSITION_INT" id="73">
