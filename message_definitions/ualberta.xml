@@ -1,6 +1,33 @@
 <?xml version='1.0'?>
 <mavlink>
      <include>common.xml</include>
+<enums>
+	<enum name="UALBERTA_AUTOPILOT_MODE">
+		<description>Available autopilot modes for ualberta uav</description>
+		<entry name = "MODE_MANUAL_DIRECT">Raw input pulse widts sent to output</entry>
+		<entry name = "MODE_MANUAL_SCALED">Inputs are normalized using calibration, the converted back to raw pulse widths for output</entry>
+		<entry name = "MODE_AUTO_PID_ATT" />
+		<entry name = "MODE_AUTO_PID_VEL" />
+		<entry name = "MODE_AUTO_PID_POS" />
+	</enum>
+
+	<enum name="UALBERTA_NAV_MODE">
+		<description>Navigation filter mode</description>
+		<entry name="NAV_AHRS_INIT">AHRS initialization mode</entry>
+		<entry name="NAV_AHRS">AHRS mode</entry>
+		<entry name="NAV_INS_GPS_INIT">INS/GPS initialization mode</entry>
+		<entry name="NAV_INS_GPS">INS/GPS mode</entry>
+	</enum>
+
+	<enum name="UALBERTA_PILOT_MODE">
+		<description>Mode currently commanded by pilot</description>
+		<entry name="PILOT_MANUAL" />
+		<entry name="PILOT_AUTO" />
+		<entry name="PILOT_ROTO"> Rotomotion mode </entry>
+	</enum>
+
+</enums>
+
      <messages>
           <message id="220" name="NAV_FILTER_BIAS">
                <description>Accelerometer and Gyro biases from the navigation filter</description>
@@ -21,5 +48,11 @@
                <field type="uint16_t[5]" name="pitch">Pitch curve setpoints (every 25%)</field>
                <field type="uint16_t[5]" name="throttle">Throttle curve setpoints (every 25%)</field>
           </message>
+	  <message id="222" name="UALBERTA_SYS_STATUS">
+		<description>System status specific to ualberta uav</description>
+		<field name="mode" type="uint8_t">System mode, see UALBERTA_AUTOPILOT_MODE ENUM</field>
+     		<field name="nav_mode" type="uint8_t">Navigation mode, see UALBERTA_NAV_MODE ENUM</field>
+	     <field name="pilot" type="uint8_t">Pilot mode, see UALBERTA_PILOT_MODE</field>
+	</message>
      </messages>
 </mavlink>
