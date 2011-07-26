@@ -6,9 +6,9 @@
 		<description>Available autopilot modes for ualberta uav</description>
 		<entry name = "MODE_MANUAL_DIRECT">Raw input pulse widts sent to output</entry>
 		<entry name = "MODE_MANUAL_SCALED">Inputs are normalized using calibration, the converted back to raw pulse widths for output</entry>
-		<entry name = "MODE_AUTO_PID_ATT" />
-		<entry name = "MODE_AUTO_PID_VEL" />
-		<entry name = "MODE_AUTO_PID_POS" />
+		<entry name = "MODE_AUTO_PID_ATT"> </entry>
+		<entry name = "MODE_AUTO_PID_VEL"> </entry>
+		<entry name = "MODE_AUTO_PID_POS"> </entry>
 	</enum>
 
 	<enum name="UALBERTA_NAV_MODE">
@@ -21,8 +21,8 @@
 
 	<enum name="UALBERTA_PILOT_MODE">
 		<description>Mode currently commanded by pilot</description>
-		<entry name="PILOT_MANUAL" />
-		<entry name="PILOT_AUTO" />
+		<entry name="PILOT_MANUAL"> </entry>
+		<entry name="PILOT_AUTO"> </entry>
 		<entry name="PILOT_ROTO"> Rotomotion mode </entry>
 	</enum>
 
