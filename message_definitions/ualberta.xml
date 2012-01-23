@@ -50,5 +50,16 @@
             <field type="uint8_t" name="nav_mode">Navigation mode, see UALBERTA_NAV_MODE ENUM</field>
             <field type="uint8_t" name="pilot">Pilot mode, see UALBERTA_PILOT_MODE</field>
         </message>
+	<message id = "223" name = "NOVATEL_GPS_RAW">
+	  <description>Raw potition and velocity measurements from Novatel OEM4 GPS</description>
+	  <field type = "float" name = "pos_type">Position solution type</field>
+	  <field type = "float" name = "pos_x"/>
+	  <field type = "float" name = "pos_y"/>
+	  <field type = "float" name = "pos_z"/>
+	  <field type = "float" name = "vel_type">Velocity solution type</field>
+	  <field type = "float" name = "vel_x"/>
+	  <field type = "float" name = "vel_y"/>
+	  <field type = "float" name = "vel_z"/>
+	</message>
     </messages>
 </mavlink>
