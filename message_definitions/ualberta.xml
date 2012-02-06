@@ -1,65 +1,86 @@
 <?xml version='1.0'?>
 <mavlink>
-    <include>common.xml</include>
-    <enums>
-        <enum name="UALBERTA_AUTOPILOT_MODE">
-            <description>Available autopilot modes for ualberta uav</description>
-            <entry name="MODE_MANUAL_DIRECT">Raw input pulse widts sent to output</entry>
-            <entry name="MODE_MANUAL_SCALED">Inputs are normalized using calibration, the converted back to raw pulse widths for output</entry>
-            <entry name="MODE_AUTO_PID_ATT"> dfsdfs</entry>
-            <entry name="MODE_AUTO_PID_VEL"> dfsfds</entry>
-            <entry name="MODE_AUTO_PID_POS"> dfsdfsdfs</entry>
-        </enum>
-        <enum name="UALBERTA_NAV_MODE">
-            <description>Navigation filter mode</description>
-            <entry name="NAV_AHRS_INIT" />
-            <entry name="NAV_AHRS">AHRS mode</entry>
-            <entry name="NAV_INS_GPS_INIT">INS/GPS initialization mode</entry>
-            <entry name="NAV_INS_GPS">INS/GPS mode</entry>
-        </enum>
-        <enum name="UALBERTA_PILOT_MODE">
-            <description>Mode currently commanded by pilot</description>
-            <entry name="PILOT_MANUAL"> sdf</entry>
-            <entry name="PILOT_AUTO"> dfs</entry>
-            <entry name="PILOT_ROTO"> Rotomotion mode </entry>
-        </enum>
-    </enums>
-    <messages>
-        <message id="220" name="NAV_FILTER_BIAS">
-            <description>Accelerometer and Gyro biases from the navigation filter</description>
-            <field type="uint64_t" name="usec">Timestamp (microseconds)</field>
-            <field type="float" name="accel_0">b_f[0]</field>
-            <field type="float" name="accel_1">b_f[1]</field>
-            <field type="float" name="accel_2">b_f[2]</field>
-            <field type="float" name="gyro_0">b_f[0]</field>
-            <field type="float" name="gyro_1">b_f[1]</field>
-            <field type="float" name="gyro_2">b_f[2]</field>
-        </message>
-        <message id="221" name="RADIO_CALIBRATION">
-            <description>Complete set of calibration parameters for the radio</description>
-            <field type="uint16_t[3]" name="aileron">Aileron setpoints: left, center, right</field>
-            <field type="uint16_t[3]" name="elevator">Elevator setpoints: nose down, center, nose up</field>
-            <field type="uint16_t[3]" name="rudder">Rudder setpoints: nose left, center, nose right</field>
-            <field type="uint16_t[2]" name="gyro">Tail gyro mode/gain setpoints: heading hold, rate mode</field>
-            <field type="uint16_t[5]" name="pitch">Pitch curve setpoints (every 25%)</field>
-            <field type="uint16_t[5]" name="throttle">Throttle curve setpoints (every 25%)</field>
-        </message>
-        <message id="222" name="UALBERTA_SYS_STATUS">
-            <description>System status specific to ualberta uav</description>
-            <field type="uint8_t" name="mode">System mode, see UALBERTA_AUTOPILOT_MODE ENUM</field>
-            <field type="uint8_t" name="nav_mode">Navigation mode, see UALBERTA_NAV_MODE ENUM</field>
-            <field type="uint8_t" name="pilot">Pilot mode, see UALBERTA_PILOT_MODE</field>
-        </message>
-	<message id = "223" name = "NOVATEL_GPS_RAW">
-	  <description>Raw potition and velocity measurements from Novatel OEM4 GPS</description>
-	  <field type = "float" name = "pos_type">Position solution type</field>
-	  <field type = "float" name = "pos_x"/>
-	  <field type = "float" name = "pos_y"/>
-	  <field type = "float" name = "pos_z"/>
-	  <field type = "float" name = "vel_type">Velocity solution type</field>
-	  <field type = "float" name = "vel_x"/>
-	  <field type = "float" name = "vel_y"/>
-	  <field type = "float" name = "vel_z"/>
-	</message>
-    </messages>
+     <include>common.xml</include>
+     <enums>
+          <enum name="UALBERTA_SERVO_MODE">
+               <description>Possible servo pulse sources</description>
+               <entry value="0" name="UALBERTA_MODE_MANUAL_DIRECT">Raw input pulse widts sent to output</entry>
+               <entry name="UALBERTA_MODE_MANUAL_SCALED">Inputs are normalized using calibration, the converted back to raw pulse widths for output</entry>
+               <entry name="UALBERTA_MODE_AUTOMATIC_CONTROL">Use automatic controller</entry>
+          </enum>
+          <enum name="UALBERTA_GX3_MODE">
+               <entry name="UALBERTA_GX3_STARTUP" value="0"/>
+               <entry name="UALBERTA_GX3_INIT"/>
+               <entry name="UALBERTA_GX3_RUNNING_VALID"/>
+               <entry name="UALBERTA_GX3_RUNNING_ERROR"/>
+          </enum>
+          <enum name="UALBERTA_PILOT_MODE">
+               <description>Mode currently selected by the pilot</description>
+               <entry name="UALBERTA_PILOT_MANUAL" value="0"/>
+               <entry name="UALBERTA_PILOT_AUTO"/>
+          </enum>
+          <enum name="UALBERTA_CONTROL_MODE">
+               <entry name="UALBERTA_ATTITUDE_PID" value="0"/>
+               <entry name="UALBERTA_TRANSLATION_PID"/>
+          </enum>
+          <enum name="UALBERTA_ACTION">
+               <description>Request Actions from Autopilot</description>
+               <entry name="UALBERTA_RC_CALIBRATION" value="0">Request the current RC calibration parameters</entry>
+               <entry name="UALBERTA_SET_ORIGIN">Set the origin of the NED frame to the current position</entry>
+               <entry name="UALBERTA_SET_SERVO_SOURCE"/>
+               <entry name="UALBERTA_SET_CONTROL_MODE"/>
+          </enum>
+     </enums>
+     <messages>
+          <message id="220" name="NAV_FILTER_BIAS">
+               <description>Accelerometer and Gyro biases from the navigation filter</description>
+               <field type="uint64_t" name="usec">Timestamp (microseconds)</field>
+               <field type="float" name="accel_0">b_f[0]</field>
+               <field type="float" name="accel_1">b_f[1]</field>
+               <field type="float" name="accel_2">b_f[2]</field>
+               <field type="float" name="gyro_0">b_f[0]</field>
+               <field type="float" name="gyro_1">b_f[1]</field>
+               <field type="float" name="gyro_2">b_f[2]</field>
+          </message>
+          <message id="221" name="RADIO_CALIBRATION">
+               <description>Complete set of calibration parameters for the radio</description>
+               <field type="uint16_t[3]" name="aileron">Aileron setpoints: left, center, right</field>
+               <field type="uint16_t[3]" name="elevator">Elevator setpoints: nose down, center, nose up</field>
+               <field type="uint16_t[3]" name="rudder">Rudder setpoints: nose left, center, nose right</field>
+               <field type="uint16_t[2]" name="gyro">Tail gyro mode/gain setpoints: heading hold, rate mode</field>
+               <field type="uint16_t[5]" name="pitch">Pitch curve setpoints (every 25%)</field>
+               <field type="uint16_t[5]" name="throttle">Throttle curve setpoints (every 25%)</field>
+          </message>
+          <message id="222" name="UALBERTA_SYS_STATUS">
+               <description>System status specific to ualberta uav</description>
+               <field type="uint8_t" name="mode">System mode, see UALBERTA_AUTOPILOT_MODE ENUM</field>
+               <field type="uint8_t" name="gx3_mode">Navigation mode, see UALBERTA_GX3_MODE ENUM</field>
+               <field type="uint8_t" name="pilot_mode">Pilot mode, see UALBERTA_PILOT_MODE</field>
+               <field type="uint8_t" name="control_mode">Controller Mode</field>
+          </message>
+          <message id="223" name="NOVATEL_GPS_RAW">
+               <description>Raw potition and velocity measurements from Novatel OEM4 GPS</description>
+               <field type="float" name="pos_type">Position solution type</field>
+               <field type="float" name="pos_x"/>
+               <field type="float" name="pos_y"/>
+               <field type="float" name="pos_z"/>
+               <field type="float" name="vel_type">Velocity solution type</field>
+               <field type="float" name="vel_x"/>
+               <field type="float" name="vel_y"/>
+               <field type="float" name="vel_z"/>
+          </message>
+          <message id="224" name="UALBERTA_POSITION">
+               <field type="float[3]" name="llh_pos">Postion in long lat height</field>
+               <field type="float[3]" name="ned_pos">Position in local tangent frame</field>
+               <field type="float[3]" name="ned_vel">Velocity in local tangent frame</field>
+               <field type="float[3]" name="ned_origin">Local tangent frame origin in LLH</field>
+          </message>
+          <message id="225" name="UALBERTA_GX3_MESSAGE">
+               <field type="char[25]" name="message"/>
+          </message>
+          <message id="226" name="UALBERTA_ACTION">
+               <field type="uint8_t" name="action"/>
+               <field type="uint8_t" name="param">Additional parameter for action command</field>
+          </message>
+     </messages>
 </mavlink>
