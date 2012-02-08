@@ -195,6 +195,7 @@ static void mavlink_test_novatel_gps_raw(uint8_t system_id, uint8_t component_id
 	157.0,
 	185.0,
 	213.0,
+	963499128,
 	};
 	mavlink_novatel_gps_raw_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
@@ -206,6 +207,7 @@ static void mavlink_test_novatel_gps_raw(uint8_t system_id, uint8_t component_id
         	packet1.vel_x = packet_in.vel_x;
         	packet1.vel_y = packet_in.vel_y;
         	packet1.vel_z = packet_in.vel_z;
+        	packet1.time_boot_ms = packet_in.time_boot_ms;
         
         
 
@@ -215,12 +217,12 @@ static void mavlink_test_novatel_gps_raw(uint8_t system_id, uint8_t component_id
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-	mavlink_msg_novatel_gps_raw_pack(system_id, component_id, &msg , packet1.pos_type , packet1.pos_x , packet1.pos_y , packet1.pos_z , packet1.vel_type , packet1.vel_x , packet1.vel_y , packet1.vel_z );
+	mavlink_msg_novatel_gps_raw_pack(system_id, component_id, &msg , packet1.pos_type , packet1.pos_x , packet1.pos_y , packet1.pos_z , packet1.vel_type , packet1.vel_x , packet1.vel_y , packet1.vel_z , packet1.time_boot_ms );
 	mavlink_msg_novatel_gps_raw_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-	mavlink_msg_novatel_gps_raw_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.pos_type , packet1.pos_x , packet1.pos_y , packet1.pos_z , packet1.vel_type , packet1.vel_x , packet1.vel_y , packet1.vel_z );
+	mavlink_msg_novatel_gps_raw_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.pos_type , packet1.pos_x , packet1.pos_y , packet1.pos_z , packet1.vel_type , packet1.vel_x , packet1.vel_y , packet1.vel_z , packet1.time_boot_ms );
 	mavlink_msg_novatel_gps_raw_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -233,7 +235,7 @@ static void mavlink_test_novatel_gps_raw(uint8_t system_id, uint8_t component_id
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-	mavlink_msg_novatel_gps_raw_send(MAVLINK_COMM_1 , packet1.pos_type , packet1.pos_x , packet1.pos_y , packet1.pos_z , packet1.vel_type , packet1.vel_x , packet1.vel_y , packet1.vel_z );
+	mavlink_msg_novatel_gps_raw_send(MAVLINK_COMM_1 , packet1.pos_type , packet1.pos_x , packet1.pos_y , packet1.pos_z , packet1.vel_type , packet1.vel_x , packet1.vel_y , packet1.vel_z , packet1.time_boot_ms );
 	mavlink_msg_novatel_gps_raw_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }
@@ -248,9 +250,11 @@ static void mavlink_test_ualberta_position(uint8_t system_id, uint8_t component_
 	{ 101.0, 102.0, 103.0 },
 	{ 185.0, 186.0, 187.0 },
 	{ 269.0, 270.0, 271.0 },
+	963499960,
 	};
 	mavlink_ualberta_position_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
+        	packet1.time_boot_ms = packet_in.time_boot_ms;
         
         	mav_array_memcpy(packet1.llh_pos, packet_in.llh_pos, sizeof(float)*3);
         	mav_array_memcpy(packet1.ned_pos, packet_in.ned_pos, sizeof(float)*3);
@@ -264,12 +268,12 @@ static void mavlink_test_ualberta_position(uint8_t system_id, uint8_t component_
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-	mavlink_msg_ualberta_position_pack(system_id, component_id, &msg , packet1.llh_pos , packet1.ned_pos , packet1.ned_vel , packet1.ned_origin );
+	mavlink_msg_ualberta_position_pack(system_id, component_id, &msg , packet1.llh_pos , packet1.ned_pos , packet1.ned_vel , packet1.ned_origin , packet1.time_boot_ms );
 	mavlink_msg_ualberta_position_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-	mavlink_msg_ualberta_position_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.llh_pos , packet1.ned_pos , packet1.ned_vel , packet1.ned_origin );
+	mavlink_msg_ualberta_position_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.llh_pos , packet1.ned_pos , packet1.ned_vel , packet1.ned_origin , packet1.time_boot_ms );
 	mavlink_msg_ualberta_position_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -282,7 +286,7 @@ static void mavlink_test_ualberta_position(uint8_t system_id, uint8_t component_
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-	mavlink_msg_ualberta_position_send(MAVLINK_COMM_1 , packet1.llh_pos , packet1.ned_pos , packet1.ned_vel , packet1.ned_origin );
+	mavlink_msg_ualberta_position_send(MAVLINK_COMM_1 , packet1.llh_pos , packet1.ned_pos , packet1.ned_vel , packet1.ned_origin , packet1.time_boot_ms );
 	mavlink_msg_ualberta_position_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }

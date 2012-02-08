@@ -29,6 +29,7 @@
                <entry name="UALBERTA_SET_ORIGIN">Set the origin of the NED frame to the current position</entry>
                <entry name="UALBERTA_SET_SERVO_SOURCE"/>
                <entry name="UALBERTA_SET_CONTROL_MODE"/>
+	       <entry name="UALBERTA_SHUTDOWN"/>
           </enum>
      </enums>
      <messages>
@@ -68,12 +69,14 @@
                <field type="float" name="vel_x"/>
                <field type="float" name="vel_y"/>
                <field type="float" name="vel_z"/>
+	       <field type="uint32_t" name="time_boot_ms"/>
           </message>
           <message id="224" name="UALBERTA_POSITION">
                <field type="float[3]" name="llh_pos">Postion in long lat height</field>
                <field type="float[3]" name="ned_pos">Position in local tangent frame</field>
                <field type="float[3]" name="ned_vel">Velocity in local tangent frame</field>
                <field type="float[3]" name="ned_origin">Local tangent frame origin in LLH</field>
+	       <field type="uint32_t" name="time_boot_ms"/>
           </message>
           <message id="225" name="UALBERTA_GX3_MESSAGE">
                <field type="char[50]" name="message"/>
