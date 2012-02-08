@@ -76,7 +76,7 @@
                <field type="float[3]" name="ned_origin">Local tangent frame origin in LLH</field>
           </message>
           <message id="225" name="UALBERTA_GX3_MESSAGE">
-               <field type="char[25]" name="message"/>
+               <field type="char[50]" name="message"/>
           </message>
           <message id="226" name="UALBERTA_ACTION">
                <field type="uint8_t" name="action"/>

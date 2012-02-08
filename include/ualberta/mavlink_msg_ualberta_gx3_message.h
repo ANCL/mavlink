@@ -4,18 +4,18 @@
 
 typedef struct __mavlink_ualberta_gx3_message_t
 {
- char message[25]; ///< 
+ char message[50]; ///< 
 } mavlink_ualberta_gx3_message_t;
 
-#define MAVLINK_MSG_ID_UALBERTA_GX3_MESSAGE_LEN 25
-#define MAVLINK_MSG_ID_225_LEN 25
+#define MAVLINK_MSG_ID_UALBERTA_GX3_MESSAGE_LEN 50
+#define MAVLINK_MSG_ID_225_LEN 50
 
-#define MAVLINK_MSG_UALBERTA_GX3_MESSAGE_FIELD_MESSAGE_LEN 25
+#define MAVLINK_MSG_UALBERTA_GX3_MESSAGE_FIELD_MESSAGE_LEN 50
 
 #define MAVLINK_MESSAGE_INFO_UALBERTA_GX3_MESSAGE { \
 	"UALBERTA_GX3_MESSAGE", \
 	1, \
-	{  { "message", NULL, MAVLINK_TYPE_CHAR, 25, 0, offsetof(mavlink_ualberta_gx3_message_t, message) }, \
+	{  { "message", NULL, MAVLINK_TYPE_CHAR, 50, 0, offsetof(mavlink_ualberta_gx3_message_t, message) }, \
          } \
 }
 
@@ -33,19 +33,19 @@ static inline uint16_t mavlink_msg_ualberta_gx3_message_pack(uint8_t system_id, 
 						       const char *message)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-	char buf[25];
+	char buf[50];
 
-	_mav_put_char_array(buf, 0, message, 25);
-        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, 25);
+	_mav_put_char_array(buf, 0, message, 50);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, 50);
 #else
 	mavlink_ualberta_gx3_message_t packet;
 
-	mav_array_memcpy(packet.message, message, sizeof(char)*25);
-        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, 25);
+	mav_array_memcpy(packet.message, message, sizeof(char)*50);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, 50);
 #endif
 
 	msg->msgid = MAVLINK_MSG_ID_UALBERTA_GX3_MESSAGE;
-	return mavlink_finalize_message(msg, system_id, component_id, 25, 141);
+	return mavlink_finalize_message(msg, system_id, component_id, 50, 195);
 }
 
 /**
@@ -62,19 +62,19 @@ static inline uint16_t mavlink_msg_ualberta_gx3_message_pack_chan(uint8_t system
 						           const char *message)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-	char buf[25];
+	char buf[50];
 
-	_mav_put_char_array(buf, 0, message, 25);
-        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, 25);
+	_mav_put_char_array(buf, 0, message, 50);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, 50);
 #else
 	mavlink_ualberta_gx3_message_t packet;
 
-	mav_array_memcpy(packet.message, message, sizeof(char)*25);
-        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, 25);
+	mav_array_memcpy(packet.message, message, sizeof(char)*50);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, 50);
 #endif
 
 	msg->msgid = MAVLINK_MSG_ID_UALBERTA_GX3_MESSAGE;
-	return mavlink_finalize_message_chan(msg, system_id, component_id, chan, 25, 141);
+	return mavlink_finalize_message_chan(msg, system_id, component_id, chan, 50, 195);
 }
 
 /**
@@ -101,15 +101,15 @@ static inline uint16_t mavlink_msg_ualberta_gx3_message_encode(uint8_t system_id
 static inline void mavlink_msg_ualberta_gx3_message_send(mavlink_channel_t chan, const char *message)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-	char buf[25];
+	char buf[50];
 
-	_mav_put_char_array(buf, 0, message, 25);
-	_mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UALBERTA_GX3_MESSAGE, buf, 25, 141);
+	_mav_put_char_array(buf, 0, message, 50);
+	_mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UALBERTA_GX3_MESSAGE, buf, 50, 195);
 #else
 	mavlink_ualberta_gx3_message_t packet;
 
-	mav_array_memcpy(packet.message, message, sizeof(char)*25);
-	_mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UALBERTA_GX3_MESSAGE, (const char *)&packet, 25, 141);
+	mav_array_memcpy(packet.message, message, sizeof(char)*50);
+	_mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UALBERTA_GX3_MESSAGE, (const char *)&packet, 50, 195);
 #endif
 }
 
@@ -125,7 +125,7 @@ static inline void mavlink_msg_ualberta_gx3_message_send(mavlink_channel_t chan,
  */
 static inline uint16_t mavlink_msg_ualberta_gx3_message_get_message(const mavlink_message_t* msg, char *message)
 {
-	return _MAV_RETURN_char_array(msg, message, 25,  0);
+	return _MAV_RETURN_char_array(msg, message, 50,  0);
 }
 
 /**
@@ -139,6 +139,6 @@ static inline void mavlink_msg_ualberta_gx3_message_decode(const mavlink_message
 #if MAVLINK_NEED_BYTE_SWAP
 	mavlink_msg_ualberta_gx3_message_get_message(msg, ualberta_gx3_message->message);
 #else
-	memcpy(ualberta_gx3_message, _MAV_PAYLOAD(msg), 25);
+	memcpy(ualberta_gx3_message, _MAV_PAYLOAD(msg), 50);
 #endif
 }

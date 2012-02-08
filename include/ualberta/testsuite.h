@@ -293,12 +293,12 @@ static void mavlink_test_ualberta_gx3_message(uint8_t system_id, uint8_t compone
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
 	mavlink_ualberta_gx3_message_t packet_in = {
-		"ABCDEFGHIJKLMNOPQRSTUVWX",
+		"ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVW",
 	};
 	mavlink_ualberta_gx3_message_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
         
-        	mav_array_memcpy(packet1.message, packet_in.message, sizeof(char)*25);
+        	mav_array_memcpy(packet1.message, packet_in.message, sizeof(char)*50);
         
 
         memset(&packet2, 0, sizeof(packet2));
