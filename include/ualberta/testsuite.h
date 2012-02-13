@@ -142,6 +142,7 @@ static void mavlink_test_ualberta_sys_status(uint8_t system_id, uint8_t componen
 	72,
 	139,
 	206,
+	17,
 	};
 	mavlink_ualberta_sys_status_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
@@ -149,6 +150,7 @@ static void mavlink_test_ualberta_sys_status(uint8_t system_id, uint8_t componen
         	packet1.gx3_mode = packet_in.gx3_mode;
         	packet1.pilot_mode = packet_in.pilot_mode;
         	packet1.control_mode = packet_in.control_mode;
+        	packet1.attitude_source = packet_in.attitude_source;
         
         
 
@@ -158,12 +160,12 @@ static void mavlink_test_ualberta_sys_status(uint8_t system_id, uint8_t componen
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-	mavlink_msg_ualberta_sys_status_pack(system_id, component_id, &msg , packet1.mode , packet1.gx3_mode , packet1.pilot_mode , packet1.control_mode );
+	mavlink_msg_ualberta_sys_status_pack(system_id, component_id, &msg , packet1.mode , packet1.gx3_mode , packet1.pilot_mode , packet1.control_mode , packet1.attitude_source );
 	mavlink_msg_ualberta_sys_status_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-	mavlink_msg_ualberta_sys_status_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.mode , packet1.gx3_mode , packet1.pilot_mode , packet1.control_mode );
+	mavlink_msg_ualberta_sys_status_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.mode , packet1.gx3_mode , packet1.pilot_mode , packet1.control_mode , packet1.attitude_source );
 	mavlink_msg_ualberta_sys_status_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -176,7 +178,7 @@ static void mavlink_test_ualberta_sys_status(uint8_t system_id, uint8_t componen
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-	mavlink_msg_ualberta_sys_status_send(MAVLINK_COMM_1 , packet1.mode , packet1.gx3_mode , packet1.pilot_mode , packet1.control_mode );
+	mavlink_msg_ualberta_sys_status_send(MAVLINK_COMM_1 , packet1.mode , packet1.gx3_mode , packet1.pilot_mode , packet1.control_mode , packet1.attitude_source );
 	mavlink_msg_ualberta_sys_status_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }
@@ -379,6 +381,57 @@ static void mavlink_test_ualberta_action(uint8_t system_id, uint8_t component_id
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }
 
+static void mavlink_test_ualberta_attitude(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+{
+	mavlink_message_t msg;
+        uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
+        uint16_t i;
+	mavlink_ualberta_attitude_t packet_in = {
+		{ 17.0, 18.0, 19.0 },
+	{ 101.0, 102.0, 103.0 },
+	{ 185.0, 186.0, 187.0 },
+	{ 269.0, 270.0, 271.0 },
+	963499960,
+	};
+	mavlink_ualberta_attitude_t packet1, packet2;
+        memset(&packet1, 0, sizeof(packet1));
+        	packet1.time_boot_ms = packet_in.time_boot_ms;
+        
+        	mav_array_memcpy(packet1.nav_euler, packet_in.nav_euler, sizeof(float)*3);
+        	mav_array_memcpy(packet1.nav_euler_rate, packet_in.nav_euler_rate, sizeof(float)*3);
+        	mav_array_memcpy(packet1.ahrs_euler, packet_in.ahrs_euler, sizeof(float)*3);
+        	mav_array_memcpy(packet1.ahrs_euler_rate, packet_in.ahrs_euler_rate, sizeof(float)*3);
+        
+
+        memset(&packet2, 0, sizeof(packet2));
+	mavlink_msg_ualberta_attitude_encode(system_id, component_id, &msg, &packet1);
+	mavlink_msg_ualberta_attitude_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+	mavlink_msg_ualberta_attitude_pack(system_id, component_id, &msg , packet1.nav_euler , packet1.nav_euler_rate , packet1.ahrs_euler , packet1.ahrs_euler_rate , packet1.time_boot_ms );
+	mavlink_msg_ualberta_attitude_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+	mavlink_msg_ualberta_attitude_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.nav_euler , packet1.nav_euler_rate , packet1.ahrs_euler , packet1.ahrs_euler_rate , packet1.time_boot_ms );
+	mavlink_msg_ualberta_attitude_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+        mavlink_msg_to_send_buffer(buffer, &msg);
+        for (i=0; i<mavlink_msg_get_send_buffer_length(&msg); i++) {
+        	comm_send_ch(MAVLINK_COMM_0, buffer[i]);
+        }
+	mavlink_msg_ualberta_attitude_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+        
+        memset(&packet2, 0, sizeof(packet2));
+	mavlink_msg_ualberta_attitude_send(MAVLINK_COMM_1 , packet1.nav_euler , packet1.nav_euler_rate , packet1.ahrs_euler , packet1.ahrs_euler_rate , packet1.time_boot_ms );
+	mavlink_msg_ualberta_attitude_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+}
+
 static void mavlink_test_ualberta(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
 {
 	mavlink_test_nav_filter_bias(system_id, component_id, last_msg);
@@ -388,6 +441,7 @@ static void mavlink_test_ualberta(uint8_t system_id, uint8_t component_id, mavli
 	mavlink_test_ualberta_position(system_id, component_id, last_msg);
 	mavlink_test_ualberta_gx3_message(system_id, component_id, last_msg);
 	mavlink_test_ualberta_action(system_id, component_id, last_msg);
+	mavlink_test_ualberta_attitude(system_id, component_id, last_msg);
 }
 
 #ifdef __cplusplus

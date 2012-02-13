@@ -4,7 +4,7 @@
 
 typedef struct __mavlink_ualberta_position_t
 {
- float llh_pos[3]; ///< Postion in long lat height
+ float llh_pos[3]; ///< Postion in lat long height
  float ned_pos[3]; ///< Position in local tangent frame
  float ned_vel[3]; ///< Velocity in local tangent frame
  float ned_origin[3]; ///< Local tangent frame origin in LLH
@@ -37,7 +37,7 @@ typedef struct __mavlink_ualberta_position_t
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param msg The MAVLink message to compress the data into
  *
- * @param llh_pos Postion in long lat height
+ * @param llh_pos Postion in lat long height
  * @param ned_pos Position in local tangent frame
  * @param ned_vel Velocity in local tangent frame
  * @param ned_origin Local tangent frame origin in LLH
@@ -75,7 +75,7 @@ static inline uint16_t mavlink_msg_ualberta_position_pack(uint8_t system_id, uin
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param chan The MAVLink channel this message was sent over
  * @param msg The MAVLink message to compress the data into
- * @param llh_pos Postion in long lat height
+ * @param llh_pos Postion in lat long height
  * @param ned_pos Position in local tangent frame
  * @param ned_vel Velocity in local tangent frame
  * @param ned_origin Local tangent frame origin in LLH
@@ -125,7 +125,7 @@ static inline uint16_t mavlink_msg_ualberta_position_encode(uint8_t system_id, u
  * @brief Send a ualberta_position message
  * @param chan MAVLink channel to send the message
  *
- * @param llh_pos Postion in long lat height
+ * @param llh_pos Postion in lat long height
  * @param ned_pos Position in local tangent frame
  * @param ned_vel Velocity in local tangent frame
  * @param ned_origin Local tangent frame origin in LLH
@@ -162,7 +162,7 @@ static inline void mavlink_msg_ualberta_position_send(mavlink_channel_t chan, co
 /**
  * @brief Get field llh_pos from ualberta_position message
  *
- * @return Postion in long lat height
+ * @return Postion in lat long height
  */
 static inline uint16_t mavlink_msg_ualberta_position_get_llh_pos(const mavlink_message_t* msg, float *llh_pos)
 {

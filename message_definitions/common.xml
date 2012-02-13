@@ -40,6 +40,7 @@
                <entry value="11" name="MAV_AUTOPILOT_FP">
                     <description>FlexiPilot</description>
                </entry>
+	       <entry value="12" name="MAV_AUTOPILOT_UALBERTA"/>
           </enum>
           <!-- WARNING: MAV_ACTION Enum is no longer supported - has been removed. Please use MAV_CMD -->
           <enum name="MAV_MODE_FLAG">
