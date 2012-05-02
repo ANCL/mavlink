@@ -76,13 +76,9 @@
                <field type="uint8_t" name="pos_type">Position solution type</field>
                <field type="uint8_t" name="pos_status">Position solution status</field>
                <field type="uint8_t" name="num_sats">Number of satellite observations</field>
-               <field type="float" name="pos_x">NED STD Deviation</field>
-               <field type="float" name="pos_y">NED STD Deviation</field>
-               <field type="float" name="pos_z">NED STD Deviation</field>
+               <field type="float[3]" name="pos_error">NED STD Deviation</field>
                <field type="uint8_t" name="vel_type">Velocity solution type</field>
-               <field type="float" name="vel_x">NED STD Deviation</field>
-               <field type="float" name="vel_y">NED STD Deviation</field>
-               <field type="float" name="vel_z">NED STD Deviation</field>
+               <field type="float[3]" name="vel_error">NED STD Deviation</field>
                <field type="uint32_t" name="time_boot_ms"/>
           </message>
           <message id="224" name="UALBERTA_POSITION">
