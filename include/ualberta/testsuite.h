@@ -138,14 +138,22 @@ static void mavlink_test_ualberta_sys_status(uint8_t system_id, uint8_t componen
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
 	mavlink_ualberta_sys_status_t packet_in = {
-		5,
-	72,
-	139,
-	206,
-	17,
+		17.0,
+	45.0,
+	17651,
+	17755,
+	41,
+	108,
+	175,
+	242,
+	53,
 	};
 	mavlink_ualberta_sys_status_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
+        	packet1.receiver_voltage = packet_in.receiver_voltage;
+        	packet1.avionics_voltage = packet_in.avionics_voltage;
+        	packet1.engine_rpm = packet_in.engine_rpm;
+        	packet1.rotor_rpm = packet_in.rotor_rpm;
         	packet1.mode = packet_in.mode;
         	packet1.gx3_mode = packet_in.gx3_mode;
         	packet1.pilot_mode = packet_in.pilot_mode;
@@ -160,12 +168,12 @@ static void mavlink_test_ualberta_sys_status(uint8_t system_id, uint8_t componen
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-	mavlink_msg_ualberta_sys_status_pack(system_id, component_id, &msg , packet1.mode , packet1.gx3_mode , packet1.pilot_mode , packet1.control_mode , packet1.attitude_source );
+	mavlink_msg_ualberta_sys_status_pack(system_id, component_id, &msg , packet1.mode , packet1.gx3_mode , packet1.pilot_mode , packet1.control_mode , packet1.attitude_source , packet1.engine_rpm , packet1.rotor_rpm , packet1.receiver_voltage , packet1.avionics_voltage );
 	mavlink_msg_ualberta_sys_status_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-	mavlink_msg_ualberta_sys_status_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.mode , packet1.gx3_mode , packet1.pilot_mode , packet1.control_mode , packet1.attitude_source );
+	mavlink_msg_ualberta_sys_status_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.mode , packet1.gx3_mode , packet1.pilot_mode , packet1.control_mode , packet1.attitude_source , packet1.engine_rpm , packet1.rotor_rpm , packet1.receiver_voltage , packet1.avionics_voltage );
 	mavlink_msg_ualberta_sys_status_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -178,7 +186,7 @@ static void mavlink_test_ualberta_sys_status(uint8_t system_id, uint8_t componen
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-	mavlink_msg_ualberta_sys_status_send(MAVLINK_COMM_1 , packet1.mode , packet1.gx3_mode , packet1.pilot_mode , packet1.control_mode , packet1.attitude_source );
+	mavlink_msg_ualberta_sys_status_send(MAVLINK_COMM_1 , packet1.mode , packet1.gx3_mode , packet1.pilot_mode , packet1.control_mode , packet1.attitude_source , packet1.engine_rpm , packet1.rotor_rpm , packet1.receiver_voltage , packet1.avionics_voltage );
 	mavlink_msg_ualberta_sys_status_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }
@@ -195,21 +203,25 @@ static void mavlink_test_novatel_gps_raw(uint8_t system_id, uint8_t component_id
 	101.0,
 	129.0,
 	157.0,
-	185.0,
-	213.0,
-	963499128,
+	963498712,
+	89,
+	156,
+	223,
+	34,
 	};
 	mavlink_novatel_gps_raw_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
-        	packet1.pos_type = packet_in.pos_type;
         	packet1.pos_x = packet_in.pos_x;
         	packet1.pos_y = packet_in.pos_y;
         	packet1.pos_z = packet_in.pos_z;
-        	packet1.vel_type = packet_in.vel_type;
         	packet1.vel_x = packet_in.vel_x;
         	packet1.vel_y = packet_in.vel_y;
         	packet1.vel_z = packet_in.vel_z;
         	packet1.time_boot_ms = packet_in.time_boot_ms;
+        	packet1.pos_type = packet_in.pos_type;
+        	packet1.pos_status = packet_in.pos_status;
+        	packet1.num_sats = packet_in.num_sats;
+        	packet1.vel_type = packet_in.vel_type;
         
         
 
@@ -219,12 +231,12 @@ static void mavlink_test_novatel_gps_raw(uint8_t system_id, uint8_t component_id
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-	mavlink_msg_novatel_gps_raw_pack(system_id, component_id, &msg , packet1.pos_type , packet1.pos_x , packet1.pos_y , packet1.pos_z , packet1.vel_type , packet1.vel_x , packet1.vel_y , packet1.vel_z , packet1.time_boot_ms );
+	mavlink_msg_novatel_gps_raw_pack(system_id, component_id, &msg , packet1.pos_type , packet1.pos_status , packet1.num_sats , packet1.pos_x , packet1.pos_y , packet1.pos_z , packet1.vel_type , packet1.vel_x , packet1.vel_y , packet1.vel_z , packet1.time_boot_ms );
 	mavlink_msg_novatel_gps_raw_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-	mavlink_msg_novatel_gps_raw_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.pos_type , packet1.pos_x , packet1.pos_y , packet1.pos_z , packet1.vel_type , packet1.vel_x , packet1.vel_y , packet1.vel_z , packet1.time_boot_ms );
+	mavlink_msg_novatel_gps_raw_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.pos_type , packet1.pos_status , packet1.num_sats , packet1.pos_x , packet1.pos_y , packet1.pos_z , packet1.vel_type , packet1.vel_x , packet1.vel_y , packet1.vel_z , packet1.time_boot_ms );
 	mavlink_msg_novatel_gps_raw_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -237,7 +249,7 @@ static void mavlink_test_novatel_gps_raw(uint8_t system_id, uint8_t component_id
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-	mavlink_msg_novatel_gps_raw_send(MAVLINK_COMM_1 , packet1.pos_type , packet1.pos_x , packet1.pos_y , packet1.pos_z , packet1.vel_type , packet1.vel_x , packet1.vel_y , packet1.vel_z , packet1.time_boot_ms );
+	mavlink_msg_novatel_gps_raw_send(MAVLINK_COMM_1 , packet1.pos_type , packet1.pos_status , packet1.num_sats , packet1.pos_x , packet1.pos_y , packet1.pos_z , packet1.vel_type , packet1.vel_x , packet1.vel_y , packet1.vel_z , packet1.time_boot_ms );
 	mavlink_msg_novatel_gps_raw_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }

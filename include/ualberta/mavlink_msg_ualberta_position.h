@@ -4,10 +4,10 @@
 
 typedef struct __mavlink_ualberta_position_t
 {
- float llh_pos[3]; ///< Postion in lat long height
- float ned_pos[3]; ///< Position in local tangent frame
- float ned_vel[3]; ///< Velocity in local tangent frame
- float ned_origin[3]; ///< Local tangent frame origin in LLH
+ float llh_pos[3]; ///< Postion in lat long height(Estimated)
+ float ned_pos[3]; ///< Position in local tangent frame(Estimated)
+ float ned_vel[3]; ///< Velocity in local tangent frame(Estimated)
+ float ned_origin[3]; ///< Local tangent frame origin in LLH(Estimated)
  uint32_t time_boot_ms; ///< 
 } mavlink_ualberta_position_t;
 
@@ -37,10 +37,10 @@ typedef struct __mavlink_ualberta_position_t
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param msg The MAVLink message to compress the data into
  *
- * @param llh_pos Postion in lat long height
- * @param ned_pos Position in local tangent frame
- * @param ned_vel Velocity in local tangent frame
- * @param ned_origin Local tangent frame origin in LLH
+ * @param llh_pos Postion in lat long height(Estimated)
+ * @param ned_pos Position in local tangent frame(Estimated)
+ * @param ned_vel Velocity in local tangent frame(Estimated)
+ * @param ned_origin Local tangent frame origin in LLH(Estimated)
  * @param time_boot_ms 
  * @return length of the message in bytes (excluding serial stream start sign)
  */
@@ -75,10 +75,10 @@ static inline uint16_t mavlink_msg_ualberta_position_pack(uint8_t system_id, uin
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param chan The MAVLink channel this message was sent over
  * @param msg The MAVLink message to compress the data into
- * @param llh_pos Postion in lat long height
- * @param ned_pos Position in local tangent frame
- * @param ned_vel Velocity in local tangent frame
- * @param ned_origin Local tangent frame origin in LLH
+ * @param llh_pos Postion in lat long height(Estimated)
+ * @param ned_pos Position in local tangent frame(Estimated)
+ * @param ned_vel Velocity in local tangent frame(Estimated)
+ * @param ned_origin Local tangent frame origin in LLH(Estimated)
  * @param time_boot_ms 
  * @return length of the message in bytes (excluding serial stream start sign)
  */
@@ -125,10 +125,10 @@ static inline uint16_t mavlink_msg_ualberta_position_encode(uint8_t system_id, u
  * @brief Send a ualberta_position message
  * @param chan MAVLink channel to send the message
  *
- * @param llh_pos Postion in lat long height
- * @param ned_pos Position in local tangent frame
- * @param ned_vel Velocity in local tangent frame
- * @param ned_origin Local tangent frame origin in LLH
+ * @param llh_pos Postion in lat long height(Estimated)
+ * @param ned_pos Position in local tangent frame(Estimated)
+ * @param ned_vel Velocity in local tangent frame(Estimated)
+ * @param ned_origin Local tangent frame origin in LLH(Estimated)
  * @param time_boot_ms 
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
@@ -162,7 +162,7 @@ static inline void mavlink_msg_ualberta_position_send(mavlink_channel_t chan, co
 /**
  * @brief Get field llh_pos from ualberta_position message
  *
- * @return Postion in lat long height
+ * @return Postion in lat long height(Estimated)
  */
 static inline uint16_t mavlink_msg_ualberta_position_get_llh_pos(const mavlink_message_t* msg, float *llh_pos)
 {
@@ -172,7 +172,7 @@ static inline uint16_t mavlink_msg_ualberta_position_get_llh_pos(const mavlink_m
 /**
  * @brief Get field ned_pos from ualberta_position message
  *
- * @return Position in local tangent frame
+ * @return Position in local tangent frame(Estimated)
  */
 static inline uint16_t mavlink_msg_ualberta_position_get_ned_pos(const mavlink_message_t* msg, float *ned_pos)
 {
@@ -182,7 +182,7 @@ static inline uint16_t mavlink_msg_ualberta_position_get_ned_pos(const mavlink_m
 /**
  * @brief Get field ned_vel from ualberta_position message
  *
- * @return Velocity in local tangent frame
+ * @return Velocity in local tangent frame(Estimated)
  */
 static inline uint16_t mavlink_msg_ualberta_position_get_ned_vel(const mavlink_message_t* msg, float *ned_vel)
 {
@@ -192,7 +192,7 @@ static inline uint16_t mavlink_msg_ualberta_position_get_ned_vel(const mavlink_m
 /**
  * @brief Get field ned_origin from ualberta_position message
  *
- * @return Local tangent frame origin in LLH
+ * @return Local tangent frame origin in LLH(Estimated)
  */
 static inline uint16_t mavlink_msg_ualberta_position_get_ned_origin(const mavlink_message_t* msg, float *ned_origin)
 {
