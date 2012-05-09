@@ -102,5 +102,8 @@
                <field type="float[3]" name="ahrs_euler_rate"/>
                <field type="uint32_t" name="time_boot_ms"/>
           </message>
+	  <message id="228" name="UALBERTA_CONTROL_EFFORT">
+	    <field type="float[6]" name="normalized_control_effort"/>
+	  </message>
      </messages>
 </mavlink>

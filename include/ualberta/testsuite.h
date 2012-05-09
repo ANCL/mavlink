@@ -436,6 +436,49 @@ static void mavlink_test_ualberta_attitude(uint8_t system_id, uint8_t component_
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }
 
+static void mavlink_test_ualberta_control_effort(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+{
+	mavlink_message_t msg;
+        uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
+        uint16_t i;
+	mavlink_ualberta_control_effort_t packet_in = {
+		{ 17.0, 18.0, 19.0, 20.0, 21.0, 22.0 },
+	};
+	mavlink_ualberta_control_effort_t packet1, packet2;
+        memset(&packet1, 0, sizeof(packet1));
+        
+        	mav_array_memcpy(packet1.normalized_control_effort, packet_in.normalized_control_effort, sizeof(float)*6);
+        
+
+        memset(&packet2, 0, sizeof(packet2));
+	mavlink_msg_ualberta_control_effort_encode(system_id, component_id, &msg, &packet1);
+	mavlink_msg_ualberta_control_effort_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+	mavlink_msg_ualberta_control_effort_pack(system_id, component_id, &msg , packet1.normalized_control_effort );
+	mavlink_msg_ualberta_control_effort_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+	mavlink_msg_ualberta_control_effort_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.normalized_control_effort );
+	mavlink_msg_ualberta_control_effort_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+        mavlink_msg_to_send_buffer(buffer, &msg);
+        for (i=0; i<mavlink_msg_get_send_buffer_length(&msg); i++) {
+        	comm_send_ch(MAVLINK_COMM_0, buffer[i]);
+        }
+	mavlink_msg_ualberta_control_effort_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+        
+        memset(&packet2, 0, sizeof(packet2));
+	mavlink_msg_ualberta_control_effort_send(MAVLINK_COMM_1 , packet1.normalized_control_effort );
+	mavlink_msg_ualberta_control_effort_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+}
+
 static void mavlink_test_ualberta(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
 {
 	mavlink_test_nav_filter_bias(system_id, component_id, last_msg);
@@ -446,6 +489,7 @@ static void mavlink_test_ualberta(uint8_t system_id, uint8_t component_id, mavli
 	mavlink_test_ualberta_gx3_message(system_id, component_id, last_msg);
 	mavlink_test_ualberta_action(system_id, component_id, last_msg);
 	mavlink_test_ualberta_attitude(system_id, component_id, last_msg);
+	mavlink_test_ualberta_control_effort(system_id, component_id, last_msg);
 }
 
 #ifdef __cplusplus
